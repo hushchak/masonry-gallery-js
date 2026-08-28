@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.masonry-gallery {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.masonry-column {
+  display: flex;
+  flex-direction: column;
+  margin: 0 4px;
+  gap: 8px;
+}
+
+.masonry-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
