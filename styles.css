@@ -15,6 +15,7 @@
 .masonry-column {
   display: flex;
   flex-direction: column;
+  height: min-content;
   margin: 0 4px;
   gap: 8px;
 }
