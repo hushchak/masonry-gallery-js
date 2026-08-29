@@ -10,12 +10,19 @@ function arrangeMasonry(gallery) {
     gallery.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
 
     const images = getChildMasonryImages(gallery);
+    clearMasonryColumns(gallery, images);
     const columns = [];
     for (let i = 0; i < columnCount; i++) {
         columns.push(insertMasonryColumn(gallery));
     }
 
     arrangeImagesInColumns(columns, images);
+}
+
+function clearMasonryColumns(gallery, images) {
+    const columns = gallery.querySelectorAll(".masonry-column");
+    images.forEach((image) => gallery.appendChild(image));
+    columns.forEach((column) => column.remove());
 }
 
 function arrangeImagesInColumns(columns, images) {
@@ -46,5 +53,17 @@ function insertMasonryColumn(element) {
 function getChildMasonryImages(parentObject) {
     return parentObject.querySelectorAll(".masonry-image");
 }
+
+window.addEventListener("resize", () => {
+    const masonries = document.querySelectorAll(".masonry-gallery");
+    masonries.forEach((gallery) => {
+        const columns = gallery.querySelectorAll(".masonry-column");
+        const neededColumnCount = Math.max(Math.floor(gallery.offsetWidth / 350), 1);
+        if (neededColumnCount !== columns.length) {
+            console.log({neededColumnCount, columns: columns.length});
+            arrangeMasonry(gallery);
+        }
+    });
+});
 
 arrangeMasonries();
