@@ -11,6 +11,11 @@ function arrangeMasonry(gallery) {
 
     const images = getChildMasonryImages(gallery);
     clearMasonryColumns(gallery, images);
+
+    if (gallery.classList.contains("sort")) {
+        images.sort((image1, image2) => image2.offsetHeight - image1.offsetHeight);
+    }
+
     const columns = [];
     for (let i = 0; i < columnCount; i++) {
         columns.push(insertMasonryColumn(gallery));
@@ -20,9 +25,11 @@ function arrangeMasonry(gallery) {
 }
 
 function clearMasonryColumns(gallery, images) {
-    const columns = gallery.querySelectorAll(".masonry-column");
-    images.forEach((image) => gallery.appendChild(image));
-    columns.forEach((column) => column.remove());
+    const columns = [...gallery.querySelectorAll(".masonry-column")];
+    if (columns.length > 0) {
+        images.forEach((image) => gallery.appendChild(image));
+        columns.forEach((column) => column.remove());
+    }
 }
 
 function arrangeImagesInColumns(columns, images) {
@@ -51,7 +58,7 @@ function insertMasonryColumn(element) {
 }
 
 function getChildMasonryImages(parentObject) {
-    return parentObject.querySelectorAll(".masonry-image");
+    return [...parentObject.querySelectorAll(".masonry-image")];
 }
 
 window.addEventListener("resize", () => {
